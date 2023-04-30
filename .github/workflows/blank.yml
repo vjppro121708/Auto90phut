@@ -1,0 +1,27 @@
+name: Update Football Links
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Đổi thành lịch trình mong muốn
+
+jobs:
+  update-links:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: pip install requests BeautifulSoup4
+    - name: Run script
+      run: python update_football_links.py # Đổi thành tên tệp script của bạn
+    - name: Commit changes
+      run: |
+        git config --global user.name 'Your Name' # Đổi thành tên của bạn
+        git config --global user.email 'your-email@example.com' # Đổi thành email của bạn
+        git add .
+        git commit -m 'Update football links'
+        git push
